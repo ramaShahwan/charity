@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('number')->nullable();
+            $table->string('number')->nullable();
             $table->timestamps();
                    //donations_table
                    $table->foreignId('donation_id')->nullable();

@@ -11,4 +11,9 @@ class Bank extends Model
     protected $table = 'banks';
     protected $fillable = ['name', 'bill_num'];
 
+    
+    public function donation(): HasMany
+    {
+        return $this->hasMany(Donation::class);
+    }
 }

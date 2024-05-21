@@ -2,8 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Center;
+use App\Models\Role;
+use App\Models\User_Project;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -66,4 +72,21 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
     
+
+
+    public function center(): BelongsTo
+    {
+      return $this->belongsTo(Center::class, 'center_id');
+    }
+
+    public function role(): BelongsTo
+    {
+      return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function user_project(): HasMany
+    {
+        return $this->hasMany(User_Project::class);
+    }
+
 }

@@ -7,5 +7,6 @@ use Illuminate\Http\Request;
 
 class DonationController extends Controller
 {
-    //
+    use ApiResponseTrait;
+
 }

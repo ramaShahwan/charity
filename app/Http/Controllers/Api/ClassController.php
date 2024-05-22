@@ -7,5 +7,6 @@ use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
-    //
+    use ApiResponseTrait;
+
 }

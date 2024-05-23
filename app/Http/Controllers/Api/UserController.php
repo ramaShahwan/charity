@@ -70,18 +70,30 @@ class UserController extends Controller
             'role_id'=>$request->role_id,
 
         ]);
+
+        if($user){
+          return $this->apiResponse($user, 'user saved succesfully', 201);
+      }
+      return $this->apiResponse(null, 'user not save', 400);
     }
 
   
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $validator = $request->validater([
             'name' => 'required',
             'email' => 'required' ,
             'password' => 'required',
             'role_id' => 'required',
         ]);
+        if ($validator->fails()) {
+          return $this->apiResponse(null, $validator->errors(), 400);
+      }
       $user = User::findOrFail($id);
+
+      if(!$user){
+        return $this->apiResponse(null, 'This user is not found', 404);
+    }
   
       $user->update([
             'name'=>$request->name,
@@ -89,11 +101,19 @@ class UserController extends Controller
             'password'=>$request->password,
             'role_id'=>$request->role_id,
       ]);
-    
+
+      if($user){
+        return $this->apiResponse($user, 'user updated succesfully', 201);
+    }
     }
 
     public function destroy( $id)
     {
+      $user = User::findOrFail($id);
+
+      if(!$user){
+        return $this->apiResponse(null, 'This class not found', 404);
+    }
         $projects = User_Project::where('user_id',$id)->get();
         foreach($projects as $project)
         {
@@ -104,7 +124,6 @@ class UserController extends Controller
         }
           $project->delete();
         }
-      User::findOrFail($id)->delete();
-   
+        $user->delete();
     }
 }

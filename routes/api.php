@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\BillController;
+
 
 
 /*
@@ -76,3 +78,6 @@ Route::get('/centers', [CenterController::class, 'show']);
 Route::post('/centers', [CenterController::class, 'store']);
 Route::post('/centers/{id}', [CenterController::class, 'update']);
 Route::delete('/center/{id}', [CenterController::class, 'destroy']);
+
+//bills
+Route::get('/bills/{bank_id}', [BillController::class, 'get']);

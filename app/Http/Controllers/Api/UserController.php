@@ -128,7 +128,7 @@ class UserController extends Controller
             'number'=>$numb
          ]);
 
-        if($user&$user_proj&$don&$numb&$bill){
+        if($user&$user_proj&$don&$num&$bill){
           return $this->apiResponse($bill, 'user saved succesfully', 201);
       }
       return $this->apiResponse(null, 'user not save', 400);

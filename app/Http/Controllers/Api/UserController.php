@@ -46,20 +46,22 @@ class UserController extends Controller
         ->select('users.*', 'projects.name as project_name')
         ->get();
 
-    // يمكنك استخدام $usersWithProjects هنا حسب احتياجاتك الأخرى
+        return $this->apiResponse($usersWithProjects, 'ok', 200);
   }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = $request->validater([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
              'role_id' => 'required',
           //   'center_id' => 'required',
-
         ]);
-
+        
+        if ($validator->fails()) {
+          return $this->apiResponse(null, $validator->errors(), 400);
+      }
         $user= User::create([
             'name'=>$request->name,
             'email'=>$request->email,
@@ -90,7 +92,6 @@ class UserController extends Controller
     
     }
 
-   
     public function destroy( $id)
     {
         $projects = User_Project::where('user_id',$id)->get();
@@ -106,7 +107,4 @@ class UserController extends Controller
       User::findOrFail($id)->delete();
    
     }
-
-
-
 }

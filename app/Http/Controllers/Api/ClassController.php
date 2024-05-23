@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File; 
 use Illuminate\Http\Request;
 use App\Models\Class_;
 
@@ -54,7 +55,7 @@ class ClassController extends Controller
 
     public function update(Request $request, $id){
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator( [
             'name' => 'required|max:255',
             'image' => 'required',
         ]);
@@ -65,7 +66,7 @@ class ClassController extends Controller
 
 
         $class = Class_::find($id);
-
+         $oldImageName=$class->image;
         if(!$class){
             return $this->apiResponse(null, 'This post not found', 404);
         }

@@ -7,5 +7,6 @@ use Illuminate\Http\Request;
 
 class CenterController extends Controller
 {
-    //
+    use ApiResponseTrait;
+
 }

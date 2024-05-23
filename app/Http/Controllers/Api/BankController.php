@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class BankController extends Controller
 {
-    //
+    use ApiResponseTrait;
+
+    
 }

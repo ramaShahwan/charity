@@ -7,5 +7,6 @@ use Illuminate\Http\Request;
 
 class UserProjectController extends Controller
 {
-    //
+    use ApiResponseTrait;
+
 }

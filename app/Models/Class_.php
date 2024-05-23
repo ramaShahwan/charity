@@ -13,6 +13,7 @@ class Class_ extends Model
     protected $table = 'classes';
     protected $fillable = ['name','image'];
 
+    
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);

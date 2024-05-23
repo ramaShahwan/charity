@@ -12,6 +12,8 @@ use App\Models\Project;
 
 class UserController extends Controller
 {
+  use ApiResponseTrait;
+
     public function show_donation()
     { 
          $users = Donation::whereNull('password')->orderBy('created_at','DESC');
@@ -104,4 +106,7 @@ class UserController extends Controller
       User::findOrFail($id)->delete();
    
     }
+
+
+
 }

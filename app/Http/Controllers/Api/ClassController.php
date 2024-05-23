@@ -69,12 +69,12 @@ class ClassController extends Controller
 
         $class = Class_::find($id);
          $oldImageName=$class->image;
+         
         if(!$class){
             return $this->apiResponse(null, 'This post not found', 404);
         }
 
         $class->name = $request->name;
-        $class->image  = $request->image;
 
         // update newImage
         if ($request->hasFile('image')) {

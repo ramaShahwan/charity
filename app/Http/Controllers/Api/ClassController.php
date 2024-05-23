@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Class_;
 
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ClassController extends Controller
 {

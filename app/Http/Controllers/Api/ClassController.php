@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Models\Class_;
 
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ClassController extends Controller
 {

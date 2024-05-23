@@ -9,4 +9,8 @@ class BillController extends Controller
 {
     use ApiResponseTrait;
 
+    public function get(Request $request)
+    {
+       
+    }
 }

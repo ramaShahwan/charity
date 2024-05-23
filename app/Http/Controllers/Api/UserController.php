@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
+use App\Models\Bill;
 use App\Models\Donation;
 use App\Models\User_Project;
 use Illuminate\Http\Request;
@@ -117,9 +119,17 @@ class UserController extends Controller
             'user_project_id'=>$user_proj->id
            ]);
 
+          $num=Bank::where('id',$don->bank_id)->get();
+          $num->bill_num = $num->bill_num +1;
+          $numb = $num->bill_num;
+          $num->update();
 
-        if($user){
-          return $this->apiResponse($user, 'user saved succesfully', 201);
+         $bill=Bill::create([
+            'number'=>$numb
+         ]);
+
+        if($user&$user_proj&$don&$numb&$bill){
+          return $this->apiResponse($bill, 'user saved succesfully', 201);
       }
       return $this->apiResponse(null, 'user not save', 400);
     }

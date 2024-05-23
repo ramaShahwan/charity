@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullabble();
-            $table->string('image')->nullabble();
+            $table->string('name')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

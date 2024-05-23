@@ -95,7 +95,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'amount' => 'required',
-             'bank_id' => 'required',
+            'bank_id' => 'required',
         ]);
         
         if ($validator->fails()) {

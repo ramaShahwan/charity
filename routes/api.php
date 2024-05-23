@@ -68,7 +68,7 @@ Route::post('/bank/{id}', [BankController::class, 'destroy']);
 Route::get('/donation', [UserController::class, 'show_donation']);
 Route::get('/benifit', [UserController::class, 'show_benifit']);
 Route::post('/users', [UserController::class, 'store_benifit']);
-Route::post('/donation/{project_id}', [UserController::class, 'store_benifit']);
+Route::post('/donation/{project_id}', [UserController::class, 'store_donation']);
 
 Route::post('/users/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);

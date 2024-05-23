@@ -119,7 +119,7 @@ class UserController extends Controller
             'user_project_id'=>$user_proj->id
            ]);
 
-          $num=Bank::where('id',$don->bank_id)->get();
+          $num=Bank::where('id',$don->bank_id)->first();
           $num->bill_num = $num->bill_num +1;
           $numb = $num->bill_num;
           $num->update();
@@ -128,7 +128,7 @@ class UserController extends Controller
             'number'=>$numb
          ]);
 
-        if($user&$user_proj&$don&$num&$bill){
+        if($user){
           return $this->apiResponse($bill, 'user saved succesfully', 201);
       }
       return $this->apiResponse(null, 'user not save', 400);

@@ -50,6 +50,8 @@ Route::post('/class/{id}', [ClassController::class, 'destroy']);
 
 // project
 Route::get('/projects', [ProjectController::class, 'index']);
+Route::get('/projectForClass/{class_id}', [ProjectController::class, 'get_project_for_class']);
+
 Route::post('/projects', [ProjectController::class, 'store']);
 
 Route::post('/projects/{id}', [ProjectController::class, 'update']);

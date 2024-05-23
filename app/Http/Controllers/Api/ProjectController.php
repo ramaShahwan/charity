@@ -17,6 +17,12 @@ class ProjectController extends Controller
         return $this->apiResponse($projects, 'ok', 200);
     }
 
+    public function get_project_for_class($class_id){
+        
+        $projects = Project::where('class_id',$class_id)->get();
+        return $this->apiResponse($projects, 'ok', 200);
+    }
+
 
     public function store(Request $request)
     {

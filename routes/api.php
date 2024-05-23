@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ClassController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -33,4 +35,6 @@ Route::group([
 });
 
 
+Route::get('/classes', [ClassController::class, 'index']);
+Route::post('/classes', [ClassController::class, 'store']);
 

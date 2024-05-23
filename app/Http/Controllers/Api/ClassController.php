@@ -20,9 +20,9 @@ class ClassController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator([
             'name' => 'required|max:255',
-            'image' => 'required',
+            // 'image' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -31,7 +31,7 @@ class ClassController extends Controller
 
         $class = new Class_(); 
         $class->name = $request->name;
-        $class->image  = $request->image;
+        // $class->image  = $request->image;
         $class->save();
 
         // store image

@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function show_donation()
     { 
-         $users = Donation::whereNull('password')->orderBy('created_at','DESC');
+      $users = Donation::whereNull('password')->orderBy('created_at','DESC');
         
     }
 

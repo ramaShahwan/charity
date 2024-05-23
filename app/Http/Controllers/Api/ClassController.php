@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File; 
-use Illuminate\Http\Request;
 use App\Models\Class_;
+use App\Models\Project;
+use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,7 +35,6 @@ class ClassController extends Controller
 
         $class = new Class_(); 
         $class->name = $request->name;
-        // $class->image  = $request->image;
         $class->save();
 
         // store image
@@ -68,7 +68,7 @@ class ClassController extends Controller
 
 
         $class = Class_::find($id);
-         $oldImageName=$class->image;
+        $oldImageName=$class->image;
          
         if(!$class){
             return $this->apiResponse(null, 'This post not found', 404);
@@ -108,6 +108,12 @@ class ClassController extends Controller
             return $this->apiResponse(null, 'This class not found', 404);
         }
 
+        $projects = Project::where('class_id', $id)->get();
+
+        foreach ($projects as $project) {
+            $project->delete();
+        }
+
         $class->delete($id);
 
         if($class){
@@ -115,5 +121,5 @@ class ClassController extends Controller
         }
     }
     
-    
+
 }

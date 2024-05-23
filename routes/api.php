@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BankController;
 use App\Http\Controllers\Api\ClassController;
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -28,13 +32,34 @@ Route::group([
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
-    // Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     // Route::get('/user-profile', [AuthController::class, 'userProfile']);    
 });
 
 
+// class
 Route::get('/classes', [ClassController::class, 'index']);
 Route::post('/classes', [ClassController::class, 'store']);
+
+Route::post('/classes/{id}', [ClassController::class, 'update']);
+Route::post('/class/{id}', [ClassController::class, 'destroy']);
+
+
+// project
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::post('/projects', [ProjectController::class, 'store']);
+
+Route::post('/projects/{id}', [ProjectController::class, 'update']);
+Route::post('/project/{id}', [ProjectController::class, 'destroy']);
+
+
+// bank
+Route::get('/banks', [BankController::class, 'index']);
+Route::post('/banks', [BankController::class, 'store']);
+
+Route::post('/banks/{id}', [BankController::class, 'update']);
+Route::post('/bank/{id}', [BankController::class, 'destroy']);
+
 

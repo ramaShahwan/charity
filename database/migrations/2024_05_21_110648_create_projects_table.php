@@ -25,8 +25,8 @@ return new class extends Migration
             $table->boolean('finish')->default(0)->nullable();
             $table->timestamps();
 
-             //classes_table
-             $table->foreignId('class_id')->nullable();
+            //classes_table
+            $table->foreignId('class_id')->nullable();
         });
     }
 

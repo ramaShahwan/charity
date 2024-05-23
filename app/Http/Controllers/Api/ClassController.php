@@ -37,10 +37,8 @@ class ClassController extends Controller
         $class->name = $request->name;
         $class->save();
 
-        // store image
        if($request->hasFile('image')){
         $newImage = $request->file('image');
-        //for change image name
         $newImageName = 'image_' . $class->id . '.' . $newImage->getClientOriginalExtension();
         $newImage->move(public_path('img/class/'), $newImageName);
 
@@ -68,17 +66,15 @@ class ClassController extends Controller
 
 
         $class = Class_::find($id);
-        $oldImageName=$class->image;
-         
+         $oldImageName=$class->image;
+
         if(!$class){
-            return $this->apiResponse(null, 'This post not found', 404);
+            return $this->apiResponse(null, 'This class not found', 404);
         }
 
         $class->name = $request->name;
 
-        // update newImage
         if ($request->hasFile('image')) {
-        // Delete the old image from the server
         if ($oldImageName) {
             File::delete(public_path('img/class/') . $oldImageName);
         }

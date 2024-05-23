@@ -8,7 +8,8 @@ use App\Models\User_Project;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
-
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -16,9 +17,18 @@ class UserController extends Controller
 
     public function show_donation()
     { 
-      $users = Donation::whereNull('password')->orderBy('created_at','DESC');
-        
+      $usersWithProjects = Donation::join('users_projects', 'donations.user_project_id', '=', 'users_projects.id')
+      // ->join('projects', 'users_projects.project_id', '=', 'projects.id')
+      // ->select('donations.*', 'projects.name as project_name')
+  
+      ->join('users', 'users_projects.user_id', '=', 'users.id')
+      ->where('users.role_id','=','1')
+      ->select( 'users.*','donations.*')
+      ->get();
+
+      return $this->apiResponse($usersWithProjects, 'ok', 200);
     }
+
 
     // public function show_benifit()
     // { 
@@ -41,21 +51,22 @@ class UserController extends Controller
 
     public function show_benifit()
   {
-    $usersWithProjects = User_Project::join('users', 'users.id', '=', 'user_projects.user_id')
-        ->join('projects', 'projects.id', '=', 'user_projects.project_id')
+    $usersWithProjects = User_Project::join('users', 'users.id', '=', 'users_projects.user_id')
+        ->join('projects', 'projects.id', '=', 'users_projects.project_id')
+        ->where('users.role_id','=','1')
         ->select('users.*', 'projects.name as project_name')
         ->get();
 
         return $this->apiResponse($usersWithProjects, 'ok', 200);
   }
 
-    public function store(Request $request)
+    public function store_benifit(Request $request)
     {
-        $validator = $request->validater([
+        $validator = validator([
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
-             'role_id' => 'required',
+           'password' => 'required',
+          //   'role_id' => 'required',
           //   'center_id' => 'required',
         ]);
         
@@ -67,9 +78,45 @@ class UserController extends Controller
             'email'=>$request->email,
             'password'=>$request->password,
             'center_id'=>$request->center_id,
-            'role_id'=>$request->role_id,
-
+            'role_id'=>'1',
         ]);
+
+        if($user){
+          return $this->apiResponse($user, 'user saved succesfully', 201);
+      }
+      return $this->apiResponse(null, 'user not save', 400);
+    }
+
+    public function store_donation(Request $request,$project_id)
+    {
+        $validator = validator([
+            'name' => 'required',
+            'email' => 'required',
+            'amount' => 'required',
+             'bank_id' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+          return $this->apiResponse(null, $validator->errors(), 400);
+      }
+        $user= User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'role_id'=>'2',
+        ]);
+
+        $user_proj = User_Project::create([
+        'user_id'=>$user->id,
+        'project_id'=>$project_id
+        ]);
+
+         $don= Donation::create([
+            'amount'=>$request->amount,
+            'note'=>$request->note,
+            'bank_id'=>$request->bank_id,
+            'user_project_id'=>$user_proj->id
+           ]);
+
 
         if($user){
           return $this->apiResponse($user, 'user saved succesfully', 201);
@@ -80,7 +127,7 @@ class UserController extends Controller
   
     public function update(Request $request, $id)
     {
-        $validator = $request->validater([
+        $validator = validator([
             'name' => 'required',
             'email' => 'required' ,
             'password' => 'required',
@@ -109,21 +156,27 @@ class UserController extends Controller
 
     public function destroy( $id)
     {
-      $user = User::findOrFail($id);
+      $user = User::find($id);
 
       if(!$user){
-        return $this->apiResponse(null, 'This class not found', 404);
-    }
+        return $this->apiResponse(null, 'This user not found', 404);
+        }
+
         $projects = User_Project::where('user_id',$id)->get();
-        foreach($projects as $project)
+
+        if($projects)
         {
-        $donations = Donation::where('user_project_id',$project->id)->get();
-        if($donations)
-        {
-          $donations->delete();
+          foreach($projects as $project)
+          {
+          $donations = Donation::where('user_project_id',$project->id)->get();
+          if($donations)
+          {
+            $donations->delete();
+          }
+            $project->delete();
+          }
         }
-          $project->delete();
-        }
+      
         $user->delete();
     }
 }

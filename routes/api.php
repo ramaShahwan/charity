@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BankController;
 use App\Http\Controllers\Api\ClassController;
-use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,3 +62,17 @@ Route::post('/banks/{id}', [BankController::class, 'update']);
 Route::post('/bank/{id}', [BankController::class, 'destroy']);
 
 
+//users
+Route::get('/donation', [UserController::class, 'show_donation']);
+Route::get('/benifit', [UserController::class, 'show_benifit']);
+Route::post('/users', [UserController::class, 'store_benifit']);
+Route::post('/donation/{project_id}', [UserController::class, 'store_benifit']);
+
+Route::post('/users/{id}', [UserController::class, 'update']);
+Route::delete('/user/{id}', [UserController::class, 'destroy']);
+
+//centers
+Route::get('/centers', [CenterController::class, 'show']);
+Route::post('/centers', [CenterController::class, 'store']);
+Route::post('/centers/{id}', [CenterController::class, 'update']);
+Route::delete('/center/{id}', [CenterController::class, 'destroy']);

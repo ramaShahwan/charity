@@ -69,8 +69,11 @@ class ProjectController extends Controller
 
         }
         
-        $last_donation_date = Donation::where('user_project_id', $last_donation->id)
-        ->select('created_at')->latest()->first();
+        $last_donation = Donation::where('user_project_id', $last_donation->id)
+        ->latest()->first();
+
+        $last_donation_date = $last_donation->created_at->format('Y-m-d H:i:s');
+
 
         $donations = Donation::all();
         $donation_count = 0;
@@ -85,7 +88,7 @@ class ProjectController extends Controller
 
         }
 
-      return $this->apiResponse($last_donation_date, 'This is last_donation', 200);
+      return $this->apiResponse([$target, $benefits_count, $last_donation_date, $donation_count], 'This is all data', 200);
 
     }
 

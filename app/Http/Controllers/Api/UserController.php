@@ -101,21 +101,20 @@ class UserController extends Controller
         if ($validator->fails()) {
           return $this->apiResponse(null, $validator->errors(), 400);
       }
-
-      // for insert just new user
-      $emails = User::all();
-      foreach($emails as $email) {
-        $user = User::where('email', $request->email)->first();
-        
-        if(!$user) {
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'role_id' => '2',
-            ]);
-        }
-    }
-    
+      
+     // for insert just new user
+     $emails = User::all();
+     foreach($emails as $email) {
+       $user = User::where('email', $request->email)->first();
+       
+       if(!$user) {
+           $user = User::create([
+               'name' => $request->name,
+               'email' => $request->email,
+               'role_id' => '2',
+           ]);
+       }
+   }
 
         $user_proj = User_Project::create([
         'user_id'=>$user->id,
@@ -129,7 +128,7 @@ class UserController extends Controller
             'user_project_id'=>$user_proj->id
            ]);
 
-           $proj= Project::where('id','=',$project_id)->first();
+           $proj= Project::where('id','=',$project_id)->get();
            $proj->total_donate = $proj->total_donate + $request->amount;
            if($proj->total_donate >= $proj->total_budget)
            {

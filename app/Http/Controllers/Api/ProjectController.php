@@ -131,7 +131,6 @@ class ProjectController extends Controller
         // store image
        if($request->hasFile('image')){
             $newImage = $request->file('image');
-            //for change image name
             $newImageName = 'image_' . $project->id . '.' . $newImage->getClientOriginalExtension();
             $newImage->move(public_path('img/project/'), $newImageName);
 
@@ -143,14 +142,12 @@ class ProjectController extends Controller
         // store tag
         if($request->hasFile('tag')){
             $newTag = $request->file('tag');
-            //for change tag name
             $newTagName = 'tag_' . $project->id . '.' . $newTag->getClientOriginalExtension();
             $newTag->move(public_path('img/project/'), $newTagName);
         
            $project->tag = $newTagName;
            $project->update();
        }
-
 
         if($project){
             return $this->apiResponse($project, 'The project save', 201);
@@ -165,7 +162,6 @@ class ProjectController extends Controller
             'name' => 'required|max:255',
             'description' => 'required|max:255',
             'image' => 'required',
-
             'target' => 'required',
             'total_budget' => 'required',
         ]);
@@ -188,19 +184,8 @@ class ProjectController extends Controller
         $project->target = $request->target;
         $project->total_budget = $request->total_budget;
 
-
-        // $project->update([
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        //     'target' => $request->target,
-        //     'total_budget' => $request->total_budget,
-        // ]);
-
-
-
         // update newImage
         if ($request->hasFile('image')) {
-        // Delete the old image from the server
         if ($oldImageName) {
             File::delete(public_path('img/project/') . $oldImageName);
         }
@@ -209,8 +194,7 @@ class ProjectController extends Controller
         $newImageName = 'image_' . $project->id . '.' . $newImage->getClientOriginalExtension();
         $newImage->move('img/project/', $newImageName);
 
-        // Update the image record with the new image name
-            $project->image = $newImageName;
+         $project->image = $newImageName;
         }
       
 
@@ -225,8 +209,7 @@ class ProjectController extends Controller
             $newTagName = 'tag_' . $project->id . '.' . $newTag->getClientOriginalExtension();
             $newTag->move('img/project/', $newTagName);
     
-            // Update the image record with the new image name
-                $project->tag = $newTagName;
+              $project->tag = $newTagName;
             }
 
         $project->update();

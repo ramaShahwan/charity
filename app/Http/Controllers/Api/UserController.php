@@ -119,6 +119,14 @@ class UserController extends Controller
             'user_project_id'=>$user_proj->id
            ]);
 
+           $proj= Project::where('id','=',$project_id)->get();
+           $proj->total_donate = $proj->total_donate + $request->amount;
+           if($proj->total_donate >= $proj->total_budget)
+           {
+            $proj->finish = 1;
+           }
+           $proj->update();
+
           $num=Bank::where('id',$don->bank_id)->first();
           $num->bill_num = $num->bill_num +1;
           $numb = $num->bill_num;

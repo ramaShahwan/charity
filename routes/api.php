@@ -57,6 +57,8 @@ Route::post('/projects', [ProjectController::class, 'store']);
 Route::post('/projects/{id}', [ProjectController::class, 'update']);
 Route::post('/project/{id}', [ProjectController::class, 'destroy']);
 
+Route::get('/statistic/{project_id}', [ProjectController::class, 'statistic']);
+
 
 // bank
 Route::get('/banks', [BankController::class, 'index']);
@@ -74,6 +76,9 @@ Route::post('/donation/{project_id}', [UserController::class, 'store_donation'])
 
 Route::post('/users/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
+
+
+Route::post('/register_project/{id}', [UserController::class, 'register_project']);
 
 //centers
 Route::get('/centers', [CenterController::class, 'show']);

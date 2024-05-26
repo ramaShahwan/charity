@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\User_Project;
+use App\Models\Donation;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 
@@ -21,6 +24,55 @@ class ProjectController extends Controller
         
         $projects = Project::where('class_id',$class_id)->get();
         return $this->apiResponse($projects, 'ok', 200);
+    }
+
+    public function statistic($project_id){
+
+        if($project_id){
+
+        $target = Project::where('id', $project_id)->value('target');
+
+        if(!$target){
+            return $this->apiResponse(null, 'This target is invalid', 404);
+        }
+
+        $benefits_count = Project::where('id', $project_id)->value('benefits_count');
+
+        if(!$benefits_count){
+            return $this->apiResponse(null, 'This benefits_count is invalid', 404);
+        }
+
+        $projects = User_Project::where('project_id', $project_id)->get();
+
+        if(!$projects){
+            return $this->apiResponse(null, 'This projects is invalid', 404);
+        }
+
+
+        $donations = Donation::all();
+        $donation_count = 0;
+
+
+        foreach($projects as $project){
+            foreach($donations as $donation){
+                if($donation->user_project_id == $project->id){
+                    $donation_count = $donation_count + 1;
+                }
+            }
+
+            $last_donation = Donation::where('user_project_id', $project->id)
+            ->select('created_at')->latest()->first();
+        }
+
+      return $this->apiResponse($last_donation, 'This is last_donation', 200);
+
+    }
+
+    else{
+      return $this->apiResponse(null, 'This project_id is invalid', 404);
+
+    }
+
     }
 
 

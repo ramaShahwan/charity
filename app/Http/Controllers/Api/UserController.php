@@ -207,4 +207,47 @@ class UserController extends Controller
       
         $user->delete();
     }
+
+
+    public function register_project($project_id){
+
+      $user = auth()->user();     // send token in postman
+
+      if($user){
+
+      if($user->role_id == 1){
+
+      // for insert just new benefit
+      $user_proj = User_Project::all();
+      foreach($user_proj as $u_p) {
+
+        $user_pr = User_Project::where('user_id', $user->id)->where('project_id', $project_id)->first();
+        
+        if(!$user_pr) {
+
+          $user_proj = User_Project::create([
+
+            'user_id' => $user->id,
+            'project_id' => $project_id
+          ]);
+
+          $proj = Project::where('id', $project_id)->first();
+          $proj->benefits_count = $proj->benefits_count + 1;
+          $proj->update();
+
+        return $this->apiResponse($user, 'This user is registered', 200);
+
+        }
+    }
+
+        return $this->apiResponse($user, 'This user is already registered', 200);
+
+      }
+    }
+    else{
+      return $this->apiResponse(null, 'This token is invalid', 404);
+    }
+
+    }
+
 }

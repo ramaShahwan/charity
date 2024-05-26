@@ -49,14 +49,26 @@ class ProjectController extends Controller
         }
       
 
+        // $last_donation = User_Project::join('projects', 'users_projects.project_id', '=', 'projects.id')
+        // ->join('users', 'users_projects.user_id', '=', 'users.id')
+        // ->where('users.role_id','=','2')
+        // ->select('users_projects.*')
+        // ->latest()->first();
+
         $last_donation = User_Project::join('projects', 'users_projects.project_id', '=', 'projects.id')
         ->join('users', 'users_projects.user_id', '=', 'users.id')
-        ->where('users.role_id','=','2')
-        ->select( 'users.*','projects.*')
-        ->latest()->first();
-        if($last_donation){
-            return $this->apiResponse($last_donation, 'last donation', 200);
+        ->where('users.role_id', '=', '2')
+        ->latest()
+        ->select('users_projects.*')
+        ->first();
+
+
+        if(!$last_donation){
+            // return $this->apiResponse($last_donation, 'last donation', 200);
+            return $this->apiResponse(null, 'last donation not found', 404);
+
         }
+        
         $last_donation_date = Donation::where('user_project_id', $last_donation->id)
         ->select('created_at')->latest()->first();
 

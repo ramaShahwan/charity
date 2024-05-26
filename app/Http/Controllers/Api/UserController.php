@@ -20,36 +20,14 @@ class UserController extends Controller
     public function show_donation()
     { 
       $usersWithProjects = Donation::join('users_projects', 'donations.user_project_id', '=', 'users_projects.id')
-      // ->join('projects', 'users_projects.project_id', '=', 'projects.id')
-      // ->select('donations.*', 'projects.name as project_name')
-  
+      ->join('projects', 'users_projects.project_id', '=', 'projects.id')  
       ->join('users', 'users_projects.user_id', '=', 'users.id')
-      ->where('users.role_id','=','1')
-      ->select( 'users.*','donations.*')
+      ->where('users.role_id','=','2')
+      ->select( 'users.*','donations.*', 'projects.name as project_name')
       ->get();
 
       return $this->apiResponse($usersWithProjects, 'ok', 200);
     }
-
-
-    // public function show_benifit()
-    // { 
-    //     $users=[];
-    //     $projects=[];
-
-    //      $users_id = User_Project::select('user_id')->get();
-    //      foreach($users_id as $user_id)
-    //     {
-    //          $users[] = User::where('id',$user_id)->get();
-    //     }
-
-    //     $projects_id = User_Project::select('project_id')->get();
-    //     foreach($projects_id as $project_id)
-    //    {
-    //         $projects[] = Project::where('id',$project_id)->get();
-    //    }
-
-    // }
 
     public function show_benifit()
   {

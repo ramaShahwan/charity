@@ -85,7 +85,6 @@ class ProjectController extends Controller
                     $donation_count = $donation_count + 1;
                 }
             }
-
         }
 
       return $this->apiResponse([$target, $benefits_count, $last_donation_date, $donation_count], 'This is all data', 200);

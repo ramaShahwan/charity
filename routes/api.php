@@ -40,6 +40,7 @@ Route::group([
 });
 
 
+
 // class
 // for dashboard
 Route::get('/classes', [ClassController::class, 'index']);
@@ -105,4 +106,5 @@ Route::delete('/center/{id}', [CenterController::class, 'destroy']);
 
 
 //bills
-Route::get('/bills/{bank_id}', [BillController::class, 'get']);
+// Route::get('/bills/{bank_id}', [BillController::class, 'get']);
+

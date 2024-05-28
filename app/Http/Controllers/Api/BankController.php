@@ -21,6 +21,7 @@ class BankController extends Controller
     {
         $validator = Validator([
             'name' => 'required|max:255',
+            'bill_num' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -29,6 +30,7 @@ class BankController extends Controller
 
         $bank = new Bank(); 
         $bank->name = $request->name;
+        $bank->bill_num = $request->bill_num;
         $bank->save();
 
         if($bank){
@@ -42,6 +44,7 @@ class BankController extends Controller
 
         $validator = Validator([
             'name' => 'required|max:255',
+            'bill_num' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -54,6 +57,7 @@ class BankController extends Controller
         }
 
         $bank->name = $request->name;
+        $bank->bill_num = $request->bill_num;
         $bank->update();
 
         if($bank){

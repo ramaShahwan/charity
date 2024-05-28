@@ -12,7 +12,7 @@ class BankController extends Controller
 
     public function index(){
 
-        $banks = Bank::orderBy('created_at','Asc')->get();
+        $banks = Bank::orderBy('created_at','Desc')->get();
         return $this->apiResponse($banks, 'ok', 200);
     }
 

@@ -17,7 +17,7 @@ class ClassController extends Controller
 
     public function index(){
 
-        $classes = Class_::orderBy('created_at','Asc')->get();
+        $classes = Class_::orderBy('created_at','Desc')->get();
         return $this->apiResponse($classes, 'ok', 200);
     }
 

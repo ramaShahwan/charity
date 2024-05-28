@@ -16,7 +16,7 @@ class ProjectController extends Controller
 
     public function index(){
 
-        $projects = Project::orderBy('created_at','Asc')->get();
+        $projects = Project::orderBy('created_at','Desc')->get();
         return $this->apiResponse($projects, 'ok', 200);
     }
 

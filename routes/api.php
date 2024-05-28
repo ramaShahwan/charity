@@ -36,14 +36,14 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    // Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
 });
 
 
 // class
 Route::get('/classes', [ClassController::class, 'index']);
+Route::get('/classes_projects', [ClassController::class, 'get_class_with_project']);
 Route::post('/classes', [ClassController::class, 'store']);
-
 Route::post('/classes/{id}', [ClassController::class, 'update']);
 Route::post('/class/{id}', [ClassController::class, 'destroy']);
 

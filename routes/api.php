@@ -41,17 +41,28 @@ Route::group([
 
 
 // class
+// for dashboard
 Route::get('/classes', [ClassController::class, 'index']);
+
+// for home website
 Route::get('/classes_projects', [ClassController::class, 'get_class_with_project']);
+
+// for dashboard
 Route::post('/classes', [ClassController::class, 'store']);
+
 Route::post('/classes/{id}', [ClassController::class, 'update']);
 Route::post('/class/{id}', [ClassController::class, 'destroy']);
 
 
+
 // project
+// for dashboard
 Route::get('/projects', [ProjectController::class, 'index']);
+
+
 Route::get('/projectForClass/{class_id}', [ProjectController::class, 'get_project_for_class']);
 
+// for dashboard
 Route::post('/projects', [ProjectController::class, 'store']);
 
 Route::post('/projects/{id}', [ProjectController::class, 'update']);
@@ -60,12 +71,14 @@ Route::post('/project/{id}', [ProjectController::class, 'destroy']);
 Route::get('/statistic/{project_id}', [ProjectController::class, 'statistic']);
 
 
+
 // bank
 Route::get('/banks', [BankController::class, 'index']);
 Route::post('/banks', [BankController::class, 'store']);
 
 Route::post('/banks/{id}', [BankController::class, 'update']);
 Route::post('/bank/{id}', [BankController::class, 'destroy']);
+
 
 
 //users
@@ -80,11 +93,15 @@ Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
 Route::post('/register_project/{id}', [UserController::class, 'register_project']);
 
+
+
 //centers
 Route::get('/centers', [CenterController::class, 'show']);
 Route::post('/centers', [CenterController::class, 'store']);
 Route::post('/centers/{id}', [CenterController::class, 'update']);
 Route::delete('/center/{id}', [CenterController::class, 'destroy']);
+
+
 
 //bills
 Route::get('/bills/{bank_id}', [BillController::class, 'get']);

@@ -128,7 +128,8 @@ class UserController extends Controller
           $num->update();
 
          $bill=Bill::create([
-            'number'=>$numb
+            'number'=>$numb,
+            'donation_id' => $don->id
          ]);
 
         if($user){

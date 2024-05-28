@@ -59,7 +59,7 @@ Route::post('/class/{id}', [ClassController::class, 'destroy']);
 // for dashboard
 Route::get('/projects', [ProjectController::class, 'index']);
 
-
+// for only class in website
 Route::get('/projectForClass/{class_id}', [ProjectController::class, 'get_project_for_class']);
 
 // for dashboard
@@ -68,6 +68,7 @@ Route::post('/projects', [ProjectController::class, 'store']);
 Route::post('/projects/{id}', [ProjectController::class, 'update']);
 Route::post('/project/{id}', [ProjectController::class, 'destroy']);
 
+// for details button in website
 Route::get('/statistic/{project_id}', [ProjectController::class, 'statistic']);
 
 

@@ -26,6 +26,7 @@ class ProjectController extends Controller
         return $this->apiResponse($projects, 'ok', 200);
     }
 
+    
     public function statistic($project_id){
 
         if($project_id){
@@ -39,7 +40,7 @@ class ProjectController extends Controller
         $benefits_count = Project::where('id', $project_id)->value('benefits_count');
 
         if(!$benefits_count){
-            return $this->apiResponse(null, 'This benefits_count is invalid', 404);
+            $benefits_count = 0;
         }
 
         $projects = User_Project::where('project_id', $project_id)->get();
@@ -63,16 +64,18 @@ class ProjectController extends Controller
         ->first();
 
 
-        if(!$last_donation){
-            // return $this->apiResponse($last_donation, 'last donation', 200);
-            return $this->apiResponse(null, 'last donation not found', 404);
-
+        if($last_donation){
+  
+            $last_donation = Donation::where('user_project_id', $last_donation->id)
+            ->latest()->first();
+    
+            $last_donation_date = $last_donation->created_at->format('Y-m-d H:i:s');
+    
+        }
+        else{
+            $last_donation_date = 0;
         }
         
-        $last_donation = Donation::where('user_project_id', $last_donation->id)
-        ->latest()->first();
-
-        $last_donation_date = $last_donation->created_at->format('Y-m-d H:i:s');
 
 
         $donations = Donation::all();

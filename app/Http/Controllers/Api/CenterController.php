@@ -15,7 +15,7 @@ class CenterController extends Controller
 
     public function show()
     { 
-      $centers = Center::all();
+      $centers = Center::orderBy('created_at','Asc')->get();
       return $this->apiResponse($centers, 'ok', 200);
     }
 

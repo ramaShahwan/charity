@@ -115,7 +115,7 @@ class UserController extends Controller
            $proj= Project::where('id','=',$project_id)->first();
 
            $proj->total_donate = $proj->total_donate + $request->amount;
-           
+
            if($proj->total_donate >= $proj->total_budget)
            {
             $proj->finish = 1;
@@ -220,12 +220,12 @@ class UserController extends Controller
           $proj->benefits_count = $proj->benefits_count + 1;
           $proj->update();
 
-        return $this->apiResponse($user, 'This user is registered', 200);
+        return $this->apiResponse(null, 'This user is registered', 200);
 
         }
     }
 
-        return $this->apiResponse($user, 'This user is already registered', 200);
+        return $this->apiResponse(null, 'This user is already registered', 200);
 
       }
     }

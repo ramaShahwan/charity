@@ -82,15 +82,23 @@ Route::post('/bank/{id}', [BankController::class, 'destroy']);
 
 
 //users
+// show donation details in dashboard
 Route::get('/donation', [UserController::class, 'show_donation']);
+
+// show benifit details in dashboard
 Route::get('/benifit', [UserController::class, 'show_benifit']);
+
+// store benifits in dashboard
 Route::post('/users', [UserController::class, 'store_benifit']);
+
+// for store donation in website
 Route::post('/donation/{project_id}', [UserController::class, 'store_donation']);
 
+// for dashboard
 Route::post('/users/{id}', [UserController::class, 'update']);
 Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
-
+// for register project by benifit in website
 Route::post('/register_project/{id}', [UserController::class, 'register_project']);
 
 

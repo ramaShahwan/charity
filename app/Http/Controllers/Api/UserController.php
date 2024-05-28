@@ -29,6 +29,8 @@ class UserController extends Controller
       return $this->apiResponse($usersWithProjects, 'ok', 200);
     }
 
+
+
     public function show_benifit()
   {
     $usersWithProjects = User_Project::join('users', 'users.id', '=', 'users_projects.user_id')
@@ -39,6 +41,8 @@ class UserController extends Controller
 
         return $this->apiResponse($usersWithProjects, 'ok', 200);
   }
+
+
 
     public function store_benifit(Request $request)
     {
@@ -66,6 +70,8 @@ class UserController extends Controller
       }
       return $this->apiResponse(null, 'user not save', 400);
     }
+
+
 
     public function store_donation(Request $request,$project_id)
     {
@@ -107,7 +113,9 @@ class UserController extends Controller
            ]);
 
            $proj= Project::where('id','=',$project_id)->get();
+
            $proj->total_donate = $proj->total_donate + $request->amount;
+           
            if($proj->total_donate >= $proj->total_budget)
            {
             $proj->finish = 1;

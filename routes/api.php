@@ -50,7 +50,6 @@ Route::get('/classes_projects', [ClassController::class, 'get_class_with_project
 
 // for dashboard
 Route::post('/classes', [ClassController::class, 'store']);
-
 Route::post('/classes/{id}', [ClassController::class, 'update']);
 Route::post('/class/{id}', [ClassController::class, 'destroy']);
 
@@ -65,7 +64,6 @@ Route::get('/projectForClass/{class_id}', [ProjectController::class, 'get_projec
 
 // for dashboard
 Route::post('/projects', [ProjectController::class, 'store']);
-
 Route::post('/projects/{id}', [ProjectController::class, 'update']);
 Route::post('/project/{id}', [ProjectController::class, 'destroy']);
 
@@ -75,9 +73,9 @@ Route::get('/statistic/{project_id}', [ProjectController::class, 'statistic']);
 
 
 // bank
+// for dashboard
 Route::get('/banks', [BankController::class, 'index']);
 Route::post('/banks', [BankController::class, 'store']);
-
 Route::post('/banks/{id}', [BankController::class, 'update']);
 Route::post('/bank/{id}', [BankController::class, 'destroy']);
 
@@ -98,6 +96,7 @@ Route::post('/register_project/{id}', [UserController::class, 'register_project'
 
 
 //centers
+// for dashboard
 Route::get('/centers', [CenterController::class, 'show']);
 Route::post('/centers', [CenterController::class, 'store']);
 Route::post('/centers/{id}', [CenterController::class, 'update']);

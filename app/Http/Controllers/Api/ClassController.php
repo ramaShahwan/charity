@@ -22,6 +22,14 @@ class ClassController extends Controller
     }
 
 
+    public function get_class_with_project(){
+
+        $classes = Class_::all();
+        $projects = Project::all();
+        return $this->apiResponse([$classes, $projects], 'ok', 200);
+    }
+
+
     public function store(Request $request)
     {
         $validator = Validator([

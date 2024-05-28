@@ -105,12 +105,9 @@ class ProjectController extends Controller
             'name' => 'required|max:255',
             'description' => 'required|max:255',
             'image' => 'required',
-            // 'tag' => 'required',
-
             'target' => 'required',
             'total_budget' => 'required',
-            // 'total_donate' => 'required',
-            // 'finish' => 'required',            
+            'class_id' => 'required',         
         ]);
 
         if ($validator->fails()) {
@@ -164,6 +161,7 @@ class ProjectController extends Controller
             'image' => 'required',
             'target' => 'required',
             'total_budget' => 'required',
+            'class_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -183,6 +181,7 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->target = $request->target;
         $project->total_budget = $request->total_budget;
+        $project->class_id = $request->class_id;
 
         // update newImage
         if ($request->hasFile('image')) {

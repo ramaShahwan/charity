@@ -124,6 +124,7 @@ class ProjectController extends Controller
         $project->target = $request->target;
         $project->total_budget = $request->total_budget;
 
+        $project->class_id = $request->class_id;
         $project->save();
 
 

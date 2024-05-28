@@ -112,7 +112,7 @@ class UserController extends Controller
             'user_project_id'=>$user_proj->id
            ]);
 
-           $proj= Project::where('id','=',$project_id)->get();
+           $proj= Project::where('id','=',$project_id)->first();
 
            $proj->total_donate = $proj->total_donate + $request->amount;
            

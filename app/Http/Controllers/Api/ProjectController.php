@@ -49,39 +49,28 @@ class ProjectController extends Controller
         if(!$projects){
             return $this->apiResponse(null, 'This projects is invalid', 404);
         }
-      
-
-        // $last_donation = User_Project::join('projects', 'users_projects.project_id', '=', 'projects.id')
-        // ->join('users', 'users_projects.user_id', '=', 'users.id')
-        // ->where('users.role_id','=','2')
-        // ->select('users_projects.*')
-        // ->latest()->first();
-
+ 
         $last_donation = User_Project::join('projects', 'users_projects.project_id', '=', 'projects.id')
         ->join('users', 'users_projects.user_id', '=', 'users.id')
         ->where('users.role_id', '=', '2')
         ->latest()
         ->select('users_projects.*')
         ->first();
+     
 
-
-        if($last_donation){
+        if(!$last_donation){
   
+            $last_donation_date = null;
+        }
+        else{
             $last_donation = Donation::where('user_project_id', $last_donation->id)
             ->latest()->first();
     
             $last_donation_date = $last_donation->created_at->format('Y-m-d H:i:s');
-    
         }
-        else{
-            $last_donation_date = 0;
-        }
-        
-
 
         $donations = Donation::all();
         $donation_count = 0;
-
 
         foreach($projects as $project){
             foreach($donations as $donation){
@@ -92,13 +81,12 @@ class ProjectController extends Controller
         }
 
       return $this->apiResponse([$target, $benefits_count, $last_donation_date, $donation_count], 'This is all data', 200);
+     }
 
-    }
-
-    else{
+      else{
       return $this->apiResponse(null, 'This project_id is invalid', 404);
 
-    }
+      }
 
     }
 

@@ -198,6 +198,8 @@ class UserController extends Controller
         }
       
         $user->delete();
+        return $this->apiResponse(null, 'This user is deleted', 201);
+
     }
 
 

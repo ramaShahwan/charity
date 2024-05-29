@@ -25,7 +25,7 @@ class UserController extends Controller
       ->where('users.role_id','=','2')
       ->select( 'users.*','donations.*', 'projects.name as project_name')
       ->get();
-      
+
       return $this->apiResponse($usersWithProjects, 'ok', 200);
     }
 
@@ -60,7 +60,9 @@ class UserController extends Controller
         $user= User::create([
             'name'=>$request->name,
             'email'=>$request->email,
-            'password'=>$request->password,
+            // 'password'=>$request->password,
+            'password' => bcrypt($request->password),
+
             'center_id'=>$request->center_id,
             'role_id'=>'1',
         ]);

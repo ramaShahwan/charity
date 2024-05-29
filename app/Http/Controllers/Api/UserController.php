@@ -25,7 +25,7 @@ class UserController extends Controller
       ->where('users.role_id','=','2')
       ->select( 'users.*','donations.*', 'projects.name as project_name')
       ->get();
-
+      
       return $this->apiResponse($usersWithProjects, 'ok', 200);
     }
 
@@ -139,6 +139,7 @@ class UserController extends Controller
     }
 
   
+
     public function update(Request $request, $id)
     {
         $validator = validator([
@@ -168,6 +169,8 @@ class UserController extends Controller
     }
     }
 
+
+
     public function destroy( $id)
     {
       $user = User::find($id);
@@ -193,6 +196,7 @@ class UserController extends Controller
       
         $user->delete();
     }
+
 
 
     public function register_project($project_id){

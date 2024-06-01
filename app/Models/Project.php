@@ -14,7 +14,7 @@ class Project extends Model
 {
     use HasFactory;
     protected $table = 'projects';
-    protected $fillable = ['name','description','image','tag','visits_count','benefits_count','target',
+    protected $fillable = ['name','description','image','tag','total_benifit','benefits_count','target',
                           'total_budget','total_donate','finish','class_id'];
 
     public function class_(): BelongsTo

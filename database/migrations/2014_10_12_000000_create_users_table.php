@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('job')->nullable();
             $table->string('base_pay')->nullable();
-            $table->string('overtime_pay')->nullable();
-            $table->string('total_pay')->nullable();
+            // $table->string('overtime_pay')->nullable();
+            // $table->string('total_pay')->nullable();
             $table->string('birthday')->nullable();
             $table->string('num_family')->nullable();
-            $table->string('address')->nullable();
+            // $table->string('address')->nullable();
 
             $table->foreignId('role_id')->nullable();
             $table->foreignId('center_id')->nullable();

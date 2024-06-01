@@ -17,14 +17,14 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('image')->nullable();
             $table->string('tag')->nullable();
-            $table->string('visits_count')->nullable();
+            $table->string('total_benifit')->nullable();
             $table->string('benefits_count')->nullable();
             $table->string('target')->nullable();
             $table->string('total_budget')->nullable();
             $table->string('total_donate')->nullable();
             $table->boolean('finish')->default(0)->nullable();
             $table->timestamps();
-
+            
             //classes_table
             $table->foreignId('class_id')->nullable();
         });

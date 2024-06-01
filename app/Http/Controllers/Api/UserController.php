@@ -49,9 +49,12 @@ class UserController extends Controller
         $validator = validator([
             'name' => 'required',
             'email' => 'required',
-           'password' => 'required',
-          //   'role_id' => 'required',
-          //   'center_id' => 'required',
+            'password' => 'required',
+            'state' => 'required',
+            'job' => 'required',
+            'base_pay' => 'required',
+            'birthday' => 'required',
+            'num_family' => 'required',
         ]);
         
         if ($validator->fails()) {
@@ -65,6 +68,12 @@ class UserController extends Controller
 
             'center_id'=>$request->center_id,
             'role_id'=>'1',
+
+            'state'=>$request->state,
+            'job'=>$request->job,
+            'base_pay'=>$request->base_pay,
+            'birthday'=>$request->birthday,
+            'num_family'=>$request->num_family,
         ]);
 
         if($user){
@@ -149,6 +158,11 @@ class UserController extends Controller
             'email' => 'required' ,
             'password' => 'required',
             'role_id' => 'required',
+            'state' => 'required',
+            'job' => 'required',
+            'base_pay' => 'required',
+            'birthday' => 'required',
+            'num_family' => 'required',
         ]);
         if ($validator->fails()) {
           return $this->apiResponse(null, $validator->errors(), 400);
@@ -165,6 +179,11 @@ class UserController extends Controller
             // 'password'=>$request->password,
             'password' => bcrypt($request->password),
             'role_id'=>$request->role_id,
+            'state'=>$request->state,
+            'job'=>$request->job,
+            'base_pay'=>$request->base_pay,
+            'birthday'=>$request->birthday,
+            'num_family'=>$request->num_family,
       ]);
 
       if($user){
